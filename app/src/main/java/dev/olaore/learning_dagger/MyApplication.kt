@@ -1,0 +1,11 @@
+package dev.olaore.learning_dagger
+
+import android.app.Application
+
+class MyApplication: Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+    }
+
+}
