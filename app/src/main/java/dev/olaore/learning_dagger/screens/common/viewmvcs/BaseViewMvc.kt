@@ -14,7 +14,7 @@ open class BaseViewMvc<L>(
     @LayoutRes private val layoutId: Int
 ) {
 
-    protected val rootView: View = layoutInflater.inflate(
+    val rootView: View = layoutInflater.inflate(
         layoutId, parent, false
     )
     protected val context: Context
