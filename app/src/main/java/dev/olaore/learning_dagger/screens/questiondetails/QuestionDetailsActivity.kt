@@ -14,7 +14,9 @@ import dev.olaore.learning_dagger.networking.StackoverflowApi
 import dev.olaore.learning_dagger.R
 import dev.olaore.learning_dagger.models.Result
 import dev.olaore.learning_dagger.questions.FetchQuestionDetailsUseCase
+import dev.olaore.learning_dagger.screens.common.dialogs.DialogsNavigator
 import dev.olaore.learning_dagger.screens.common.dialogs.ServerErrorDialogFragment
+import dev.olaore.learning_dagger.screens.common.navigation.ScreensNavigator
 import dev.olaore.learning_dagger.screens.common.toolbar.MyToolbar
 import kotlinx.coroutines.*
 import retrofit2.Retrofit
@@ -24,11 +26,11 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMvc.List
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private lateinit var stackoverflowApi: StackoverflowApi
-
     private lateinit var questionId: String
     private lateinit var viewMvc: QuestionDetailsViewMvc
     private lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
+    private lateinit var dialogsNavigator: DialogsNavigator
+    private lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +42,8 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMvc.List
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
         fetchQuestionDetailsUseCase = FetchQuestionDetailsUseCase()
+        dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        screensNavigator = ScreensNavigator(this)
     }
 
     override fun onStart() {
@@ -89,13 +93,11 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMvc.List
     }
 
     private fun onFetchFailed() {
-        supportFragmentManager.beginTransaction()
-            .add(ServerErrorDialogFragment.newInstance(), null)
-            .commitAllowingStateLoss()
+        dialogsNavigator.showServerErrorDialog()
     }
 
     override fun onToolbarNavigateUp() {
-        onBackPressed()
+        screensNavigator.navigateBack()
     }
 
     companion object {
