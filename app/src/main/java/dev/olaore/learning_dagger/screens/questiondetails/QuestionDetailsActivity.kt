@@ -12,6 +12,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import dev.olaore.learning_dagger.Constants
 import dev.olaore.learning_dagger.networking.StackoverflowApi
 import dev.olaore.learning_dagger.R
+import dev.olaore.learning_dagger.models.Result
+import dev.olaore.learning_dagger.questions.FetchQuestionDetailsUseCase
 import dev.olaore.learning_dagger.screens.common.dialogs.ServerErrorDialogFragment
 import dev.olaore.learning_dagger.screens.common.toolbar.MyToolbar
 import kotlinx.coroutines.*
@@ -26,6 +28,7 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMvc.List
 
     private lateinit var questionId: String
     private lateinit var viewMvc: QuestionDetailsViewMvc
+    private lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,15 +37,9 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMvc.List
         )
         setContentView(viewMvc.rootView)
 
-        // init retrofit
-        val retrofit = Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        stackoverflowApi = retrofit.create(StackoverflowApi::class.java)
-
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
+        fetchQuestionDetailsUseCase = FetchQuestionDetailsUseCase()
     }
 
     override fun onStart() {
@@ -61,21 +58,28 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMvc.List
         coroutineScope.launch {
             viewMvc.showProgressIndication()
             try {
-                val response = stackoverflowApi.questionDetails(questionId)
-                if (response.isSuccessful && response.body() != null) {
-                    val questionBody = response.body()!!.question.body
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        viewMvc.setQuestionText(Html.fromHtml(questionBody, Html.FROM_HTML_MODE_LEGACY))
-                    } else {
-                        @Suppress("DEPRECATION")
-                        viewMvc.setQuestionText(Html.fromHtml(questionBody))
+                when (val questionDetailsResult =
+                    fetchQuestionDetailsUseCase.fetchQuestionDetails(questionId)) {
+                    is Result.Success<*> -> {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            viewMvc.setQuestionText(
+                                Html.fromHtml(
+                                    questionDetailsResult.data.toString(),
+                                    Html.FROM_HTML_MODE_LEGACY
+                                )
+                            )
+                        } else {
+                            @Suppress("DEPRECATION")
+                            viewMvc.setQuestionText(
+                                Html.fromHtml(
+                                    questionDetailsResult.data.toString()
+                                )
+                            )
+                        }
                     }
-                } else {
-                    onFetchFailed()
-                }
-            } catch (t: Throwable) {
-                if (t !is CancellationException) {
-                    onFetchFailed()
+                    is Result.Failure -> {
+                        onFetchFailed()
+                    }
                 }
             } finally {
                 viewMvc.hideProgressIndication()
@@ -86,8 +90,8 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMvc.List
 
     private fun onFetchFailed() {
         supportFragmentManager.beginTransaction()
-                .add(ServerErrorDialogFragment.newInstance(), null)
-                .commitAllowingStateLoss()
+            .add(ServerErrorDialogFragment.newInstance(), null)
+            .commitAllowingStateLoss()
     }
 
     override fun onToolbarNavigateUp() {

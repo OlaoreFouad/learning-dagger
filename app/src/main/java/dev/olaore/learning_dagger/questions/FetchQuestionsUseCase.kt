@@ -25,7 +25,9 @@ class FetchQuestionsUseCase {
             try {
                 val response = stackoverflowApi.lastActiveQuestions(20)
                 if (response.isSuccessful && response.body() != null) {
-                    return@withContext Result.Success<Question>(response.body()!!.questions)
+                    return@withContext Result.Success(
+                        response.body()!!.questions
+                    )
                 } else {
                     return@withContext Result.Failure
                 }
