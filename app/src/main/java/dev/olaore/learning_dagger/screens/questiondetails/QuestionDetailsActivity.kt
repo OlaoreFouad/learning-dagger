@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
+import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -17,31 +18,21 @@ import kotlinx.coroutines.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class QuestionDetailsActivity : AppCompatActivity() {
+class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-
-    private lateinit var toolbar: MyToolbar
-    private lateinit var swipeRefresh: SwipeRefreshLayout
-    private lateinit var txtQuestionBody: TextView
 
     private lateinit var stackoverflowApi: StackoverflowApi
 
     private lateinit var questionId: String
+    private lateinit var viewMvc: QuestionDetailsViewMvc
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_question_details)
-
-        txtQuestionBody = findViewById(R.id.txt_question_body)
-
-        // init toolbar
-        toolbar = findViewById(R.id.toolbar)
-        toolbar.setNavigateUpListener { onBackPressed() }
-
-        // init pull-down-to-refresh (used as a progress indicator)
-        swipeRefresh = findViewById(R.id.swipeRefresh)
-        swipeRefresh.isEnabled = false
+        viewMvc = QuestionDetailsViewMvc(
+            LayoutInflater.from(this), null
+        )
+        setContentView(viewMvc.rootView)
 
         // init retrofit
         val retrofit = Retrofit.Builder()
@@ -56,26 +47,28 @@ class QuestionDetailsActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        viewMvc.registerListener(this)
         fetchQuestionDetails()
     }
 
     override fun onStop() {
         super.onStop()
+        viewMvc.unregisterListener(this)
         coroutineScope.coroutineContext.cancelChildren()
     }
 
     private fun fetchQuestionDetails() {
         coroutineScope.launch {
-            showProgressIndication()
+            viewMvc.showProgressIndication()
             try {
                 val response = stackoverflowApi.questionDetails(questionId)
                 if (response.isSuccessful && response.body() != null) {
                     val questionBody = response.body()!!.question.body
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        txtQuestionBody.text = Html.fromHtml(questionBody, Html.FROM_HTML_MODE_LEGACY)
+                        viewMvc.setQuestionText(Html.fromHtml(questionBody, Html.FROM_HTML_MODE_LEGACY))
                     } else {
                         @Suppress("DEPRECATION")
-                        txtQuestionBody.text = Html.fromHtml(questionBody)
+                        viewMvc.setQuestionText(Html.fromHtml(questionBody))
                     }
                 } else {
                     onFetchFailed()
@@ -85,7 +78,7 @@ class QuestionDetailsActivity : AppCompatActivity() {
                     onFetchFailed()
                 }
             } finally {
-                hideProgressIndication()
+                viewMvc.hideProgressIndication()
             }
 
         }
@@ -97,12 +90,8 @@ class QuestionDetailsActivity : AppCompatActivity() {
                 .commitAllowingStateLoss()
     }
 
-    private fun showProgressIndication() {
-        swipeRefresh.isRefreshing = true
-    }
-
-    private fun hideProgressIndication() {
-        swipeRefresh.isRefreshing = false
+    override fun onToolbarNavigateUp() {
+        onBackPressed()
     }
 
     companion object {

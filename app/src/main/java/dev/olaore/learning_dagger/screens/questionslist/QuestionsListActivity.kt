@@ -19,12 +19,13 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMvc.Listener
     private lateinit var stackoverflowApi: StackoverflowApi
     private var isDataLoaded = false
 
-    private val viewMvc = QuestionsListViewMvc(
-        LayoutInflater.from(this), null
-    )
+    private lateinit var viewMvc: QuestionsListViewMvc
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewMvc = QuestionsListViewMvc(
+            LayoutInflater.from(this), null
+        )
         setContentView(viewMvc.rootView)
 
         val retrofit = Retrofit.Builder()
