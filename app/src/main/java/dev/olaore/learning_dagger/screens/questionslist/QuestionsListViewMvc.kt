@@ -11,12 +11,15 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import dev.olaore.learning_dagger.R
 import dev.olaore.learning_dagger.questions.Question
+import dev.olaore.learning_dagger.screens.common.viewmvcs.BaseViewMvc
 import dev.olaore.learning_dagger.screens.questiondetails.QuestionDetailsActivity
 import java.util.ArrayList
 
 class QuestionsListViewMvc(
-    private val layoutInflater: LayoutInflater,
-    private val parent: ViewGroup?
+    layoutInflater: LayoutInflater,
+    parent: ViewGroup?
+): BaseViewMvc<QuestionsListViewMvc.Listener>(
+    layoutInflater, parent, R.layout.layout_questions_list
 ) {
 
     interface Listener {
@@ -24,21 +27,13 @@ class QuestionsListViewMvc(
         fun onQuestionClicked(clickedQuestion: Question)
     }
 
-    private var swipeRefresh: SwipeRefreshLayout
+    private var swipeRefresh: SwipeRefreshLayout = findViewById(
+        R.id.swipeRefresh
+    )
     private var recyclerView: RecyclerView
     private var questionsAdapter: QuestionsAdapter
 
-    var rootView: View = layoutInflater.inflate(
-        R.layout.layout_questions_list, parent, false
-    )
-
-    private var listeners = HashSet<Listener>()
-    private val context: Context
-        get() = rootView.context
-
     init {
-
-        swipeRefresh = findViewById(R.id.swipeRefresh)
         swipeRefresh.setOnRefreshListener {
             listeners.forEach {
                 it.onRefreshClicked()
@@ -54,18 +49,6 @@ class QuestionsListViewMvc(
         }
         recyclerView.adapter = questionsAdapter
 
-    }
-
-    private fun <T: View> findViewById(@IdRes viewId: Int): T {
-        return rootView.findViewById(viewId)
-    }
-
-    fun registerListener(listener: Listener) {
-        this.listeners.add(listener)
-    }
-
-    fun unregisterListener(listener: Listener) {
-        this.listeners.remove(listener)
     }
 
     fun bindQuestions(questions: List<Question>) {

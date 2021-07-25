@@ -10,30 +10,24 @@ import androidx.annotation.IdRes
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import dev.olaore.learning_dagger.R
 import dev.olaore.learning_dagger.screens.common.toolbar.MyToolbar
+import dev.olaore.learning_dagger.screens.common.viewmvcs.BaseViewMvc
 
 class QuestionDetailsViewMvc(
-    private val layoutInflater: LayoutInflater,
-    private val parent: ViewGroup?
+    layoutInflater: LayoutInflater,
+    parent: ViewGroup?
+) : BaseViewMvc<QuestionDetailsViewMvc.Listener>(
+    layoutInflater, parent, R.layout.layout_question_details
 ) {
 
     interface Listener {
         fun onToolbarNavigateUp()
     }
 
-    private var toolbar: MyToolbar
+    private var toolbar: MyToolbar = findViewById(R.id.toolbar)
     private var swipeRefresh: SwipeRefreshLayout
     private var txtQuestionBody: TextView
 
-    val rootView: View = layoutInflater.inflate(
-        R.layout.layout_question_details, parent, false
-    )
-    private val context: Context
-        get() = rootView.context
-
-    private val listeners = HashSet<Listener>()
-
     init {
-        toolbar = findViewById(R.id.toolbar)
         swipeRefresh = findViewById(R.id.swipeRefresh)
         txtQuestionBody = findViewById(R.id.txt_question_body)
 
@@ -43,14 +37,6 @@ class QuestionDetailsViewMvc(
 
         swipeRefresh.isEnabled = false
 
-    }
-
-    fun registerListener(listener: Listener) {
-        this.listeners.add(listener)
-    }
-
-    fun unregisterListener(listener: Listener) {
-        this.listeners.remove(listener)
     }
 
     fun setQuestionText(text: Spanned) {
@@ -63,10 +49,6 @@ class QuestionDetailsViewMvc(
 
     fun hideProgressIndication() {
         swipeRefresh.isRefreshing = false
-    }
-
-    private fun <T: View> findViewById(@IdRes viewId: Int): T {
-        return rootView.findViewById(viewId)
     }
 
 }
