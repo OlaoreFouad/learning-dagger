@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import dev.olaore.learning_dagger.Constants
+import dev.olaore.learning_dagger.MyApplication
 import dev.olaore.learning_dagger.models.Result
 import dev.olaore.learning_dagger.networking.StackoverflowApi
 import dev.olaore.learning_dagger.questions.FetchQuestionsUseCase
@@ -35,7 +36,9 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMvc.Listener
         )
         setContentView(viewMvc.rootView)
 
-        fetchQuestionsUseCase = FetchQuestionsUseCase()
+        fetchQuestionsUseCase = FetchQuestionsUseCase(
+            (application as MyApplication).retrofit
+        )
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
     }

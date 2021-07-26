@@ -9,12 +9,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.coroutines.cancellation.CancellationException
 
-class FetchQuestionsUseCase {
-
-    private val retrofit = Retrofit.Builder()
-        .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(Constants.BASE_URL)
-        .build()
+class FetchQuestionsUseCase(
+    private val retrofit: Retrofit
+) {
 
     private val stackoverflowApi: StackoverflowApi = retrofit.create(
         StackoverflowApi::class.java
