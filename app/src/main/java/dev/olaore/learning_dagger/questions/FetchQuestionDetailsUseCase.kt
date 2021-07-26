@@ -12,10 +12,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import dev.olaore.learning_dagger.models.Result
 
 class FetchQuestionDetailsUseCase(
-    private val retrofit: Retrofit
+    private val stackoverflowApi: StackoverflowApi
 ) {
-
-    private val stackoverflowApi = retrofit.create(StackoverflowApi::class.java)
 
     suspend fun fetchQuestionDetails(questionId: String): Result {
         return withContext(Dispatchers.IO) {
