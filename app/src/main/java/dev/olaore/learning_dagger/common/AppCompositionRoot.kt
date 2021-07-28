@@ -9,14 +9,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class AppCompositionRoot {
 
-    private val retrofit: Retrofit
-        get() = Retrofit.Builder()
+    private val retrofit: Retrofit by lazy {
+        Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(Constants.BASE_URL)
             .build()
+    }
 
-    private val stackoverflowApi: StackoverflowApi
-        get() = retrofit.create(StackoverflowApi::class.java)
+    private val stackoverflowApi: StackoverflowApi by lazy {
+        retrofit.create(StackoverflowApi::class.java)
+    }
 
     val fetchQuestionsUseCase: FetchQuestionsUseCase
         get() = FetchQuestionsUseCase(stackoverflowApi)
