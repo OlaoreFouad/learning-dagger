@@ -9,6 +9,7 @@ import dev.olaore.learning_dagger.models.Result
 import dev.olaore.learning_dagger.networking.StackoverflowApi
 import dev.olaore.learning_dagger.questions.FetchQuestionsUseCase
 import dev.olaore.learning_dagger.questions.Question
+import dev.olaore.learning_dagger.screens.activities.BaseActivity
 import dev.olaore.learning_dagger.screens.common.dialogs.DialogsNavigator
 import dev.olaore.learning_dagger.screens.common.dialogs.ServerErrorDialogFragment
 import dev.olaore.learning_dagger.screens.common.navigation.ScreensNavigator
@@ -19,7 +20,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Suppress("UNCHECKED_CAST")
-class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMvc.Listener {
+class QuestionsListActivity : BaseActivity(), QuestionsListViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private var isDataLoaded = false
@@ -36,7 +37,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMvc.Listener
         )
         setContentView(viewMvc.rootView)
 
-        fetchQuestionsUseCase = (application as MyApplication).fetchQuestionsUseCase
+        fetchQuestionsUseCase = root.fetchQuestionsUseCase
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
     }

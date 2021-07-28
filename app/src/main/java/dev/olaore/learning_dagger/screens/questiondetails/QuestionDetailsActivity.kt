@@ -15,6 +15,7 @@ import dev.olaore.learning_dagger.networking.StackoverflowApi
 import dev.olaore.learning_dagger.R
 import dev.olaore.learning_dagger.models.Result
 import dev.olaore.learning_dagger.questions.FetchQuestionDetailsUseCase
+import dev.olaore.learning_dagger.screens.activities.BaseActivity
 import dev.olaore.learning_dagger.screens.common.dialogs.DialogsNavigator
 import dev.olaore.learning_dagger.screens.common.dialogs.ServerErrorDialogFragment
 import dev.olaore.learning_dagger.screens.common.navigation.ScreensNavigator
@@ -23,7 +24,7 @@ import kotlinx.coroutines.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMvc.Listener {
+class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
@@ -42,7 +43,7 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMvc.List
 
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
-        fetchQuestionDetailsUseCase = (application as MyApplication).fetchQuestionDetailsUseCase
+        fetchQuestionDetailsUseCase = root.fetchQuestionDetailsUseCase
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
     }
