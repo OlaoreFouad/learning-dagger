@@ -44,8 +44,8 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
         fetchQuestionDetailsUseCase = root.fetchQuestionDetailsUseCase
-        dialogsNavigator = DialogsNavigator(supportFragmentManager)
-        screensNavigator = ScreensNavigator(this)
+        dialogsNavigator = root.dialogsNavigator
+        screensNavigator = root.screensNavigator
     }
 
     override fun onStart() {

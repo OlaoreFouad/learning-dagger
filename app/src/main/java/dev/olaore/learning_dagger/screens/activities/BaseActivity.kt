@@ -6,7 +6,14 @@ import dev.olaore.learning_dagger.common.AppCompositionRoot
 
 open class BaseActivity : AppCompatActivity() {
 
-    val root: AppCompositionRoot
+    private val appCompositionRoot: AppCompositionRoot
         get() = (application as MyApplication).root
+
+    val root: ActivityCompositionRoot by lazy {
+        ActivityCompositionRoot(
+            appCompositionRoot,
+            this
+        )
+    }
 
 }
