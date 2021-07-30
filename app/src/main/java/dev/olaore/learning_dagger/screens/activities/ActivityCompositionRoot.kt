@@ -1,6 +1,7 @@
 package dev.olaore.learning_dagger.screens.activities
 
 import android.app.Activity
+import android.text.Layout
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentManager
 import dev.olaore.learning_dagger.common.AppCompositionRoot
@@ -9,6 +10,7 @@ import dev.olaore.learning_dagger.questions.FetchQuestionDetailsUseCase
 import dev.olaore.learning_dagger.questions.FetchQuestionsUseCase
 import dev.olaore.learning_dagger.screens.common.dialogs.DialogsNavigator
 import dev.olaore.learning_dagger.screens.common.navigation.ScreensNavigator
+import dev.olaore.learning_dagger.screens.common.viewmvcs.ViewMvcFactory
 
 class ActivityCompositionRoot(
     private val appCompositionRoot: AppCompositionRoot,
@@ -22,20 +24,10 @@ class ActivityCompositionRoot(
     val layoutInflater: LayoutInflater
         get() = LayoutInflater.from(activity)
 
-    private val fragmentManager: FragmentManager
+    val fragmentManager: FragmentManager
         get() = activity.supportFragmentManager
 
-    val dialogsNavigator: DialogsNavigator by lazy {
-        DialogsNavigator(fragmentManager)
-    }
-
-    private val stackoverflowApi: StackoverflowApi
+    val stackoverflowApi: StackoverflowApi
         get() = appCompositionRoot.stackoverflowApi
-
-    val fetchQuestionsUseCase: FetchQuestionsUseCase
-        get() = FetchQuestionsUseCase(stackoverflowApi)
-
-    val fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
-        get() = FetchQuestionDetailsUseCase(stackoverflowApi)
 
 }

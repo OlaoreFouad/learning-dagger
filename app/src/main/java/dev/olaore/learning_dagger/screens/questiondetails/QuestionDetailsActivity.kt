@@ -36,9 +36,7 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewMvc = QuestionDetailsViewMvc(
-            LayoutInflater.from(this), null
-        )
+        viewMvc = root.viewMvcFactory.newQuestionDetailsViewMvc(null)
         setContentView(viewMvc.rootView)
 
         // retrieve question ID passed from outside
