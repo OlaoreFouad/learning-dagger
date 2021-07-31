@@ -1,12 +1,9 @@
 package dev.olaore.learning_dagger.screens.fragments
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import dev.olaore.learning_dagger.MyApplication
-import dev.olaore.learning_dagger.common.AppCompositionRoot
-import dev.olaore.learning_dagger.screens.activities.ActivityCompositionRoot
 import dev.olaore.learning_dagger.screens.activities.BaseActivity
-import dev.olaore.learning_dagger.screens.common.composition.PresentationCompositionRoot
+import dev.olaore.learning_dagger.screens.common.di.Injector
+import dev.olaore.learning_dagger.screens.common.di.PresentationCompositionRoot
 
 open class BaseFragment : Fragment() {
 
@@ -14,5 +11,8 @@ open class BaseFragment : Fragment() {
         get() = (PresentationCompositionRoot(
             (requireActivity() as BaseActivity).activityCompositionRoot
         ))
+
+    val injector: Injector
+        get() = Injector(root)
 
 }

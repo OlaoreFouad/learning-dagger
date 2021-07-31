@@ -1,10 +1,9 @@
-package dev.olaore.learning_dagger.screens.common.composition
+package dev.olaore.learning_dagger.screens.common.di
 
 import dev.olaore.learning_dagger.questions.FetchQuestionDetailsUseCase
 import dev.olaore.learning_dagger.questions.FetchQuestionsUseCase
 import dev.olaore.learning_dagger.screens.activities.ActivityCompositionRoot
 import dev.olaore.learning_dagger.screens.common.dialogs.DialogsNavigator
-import dev.olaore.learning_dagger.screens.common.navigation.ScreensNavigator
 import dev.olaore.learning_dagger.screens.common.viewmvcs.ViewMvcFactory
 
 class PresentationCompositionRoot(

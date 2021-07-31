@@ -3,7 +3,8 @@ package dev.olaore.learning_dagger.screens.activities
 import androidx.appcompat.app.AppCompatActivity
 import dev.olaore.learning_dagger.MyApplication
 import dev.olaore.learning_dagger.common.AppCompositionRoot
-import dev.olaore.learning_dagger.screens.common.composition.PresentationCompositionRoot
+import dev.olaore.learning_dagger.screens.common.di.Injector
+import dev.olaore.learning_dagger.screens.common.di.PresentationCompositionRoot
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -17,8 +18,11 @@ open class BaseActivity : AppCompatActivity() {
         )
     }
 
-    val root: PresentationCompositionRoot by lazy {
+    private val root: PresentationCompositionRoot by lazy {
         PresentationCompositionRoot(activityCompositionRoot)
     }
+
+    val injector: Injector
+        get() = Injector(root)
 
 }

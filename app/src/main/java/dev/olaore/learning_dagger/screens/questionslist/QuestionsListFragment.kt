@@ -15,6 +15,7 @@ import dev.olaore.learning_dagger.screens.activities.BaseActivity
 import dev.olaore.learning_dagger.screens.common.dialogs.DialogsNavigator
 import dev.olaore.learning_dagger.screens.common.dialogs.ServerErrorDialogFragment
 import dev.olaore.learning_dagger.screens.common.navigation.ScreensNavigator
+import dev.olaore.learning_dagger.screens.common.viewmvcs.ViewMvcFactory
 import dev.olaore.learning_dagger.screens.fragments.BaseFragment
 import dev.olaore.learning_dagger.screens.questiondetails.QuestionDetailsActivity
 import dev.olaore.learning_dagger.screens.questionslist.QuestionsListViewMvc
@@ -29,16 +30,15 @@ class QuestionsListFragment : BaseFragment(), QuestionsListViewMvc.Listener {
     private var isDataLoaded = false
 
     private lateinit var viewMvc: QuestionsListViewMvc
-    private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
-    private lateinit var dialogsNavigator: DialogsNavigator
-    private lateinit var screensNavigator: ScreensNavigator
+
+    lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+    lateinit var dialogsNavigator: DialogsNavigator
+    lateinit var viewMvcFactory: ViewMvcFactory
+    lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        fetchQuestionsUseCase = root.fetchQuestionsUseCase
-        dialogsNavigator = root.dialogsNavigator
-        screensNavigator = root.screensNavigator
+        injector.inject(this)
     }
 
     override fun onCreateView(
@@ -46,7 +46,7 @@ class QuestionsListFragment : BaseFragment(), QuestionsListViewMvc.Listener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewMvc = root.viewMvcFactory.newQuestionListViewMvc(container)
+        viewMvc = viewMvcFactory.newQuestionListViewMvc(container)
         return viewMvc.rootView
     }
 

@@ -20,6 +20,7 @@ import dev.olaore.learning_dagger.screens.common.dialogs.DialogsNavigator
 import dev.olaore.learning_dagger.screens.common.dialogs.ServerErrorDialogFragment
 import dev.olaore.learning_dagger.screens.common.navigation.ScreensNavigator
 import dev.olaore.learning_dagger.screens.common.toolbar.MyToolbar
+import dev.olaore.learning_dagger.screens.common.viewmvcs.ViewMvcFactory
 import kotlinx.coroutines.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -29,21 +30,21 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
     private lateinit var questionId: String
-    private lateinit var viewMvc: QuestionDetailsViewMvc
-    private lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
-    private lateinit var dialogsNavigator: DialogsNavigator
-    private lateinit var screensNavigator: ScreensNavigator
+    lateinit var viewMvc: QuestionDetailsViewMvc
+    lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
+    lateinit var dialogsNavigator: DialogsNavigator
+    lateinit var screensNavigator: ScreensNavigator
+
+    lateinit var viewMvcFactory: ViewMvcFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
         super.onCreate(savedInstanceState)
-        viewMvc = root.viewMvcFactory.newQuestionDetailsViewMvc(null)
+        viewMvc = viewMvcFactory.newQuestionDetailsViewMvc(null)
         setContentView(viewMvc.rootView)
 
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
-        fetchQuestionDetailsUseCase = root.fetchQuestionDetailsUseCase
-        dialogsNavigator = root.dialogsNavigator
-        screensNavigator = root.screensNavigator
     }
 
     override fun onStart() {
