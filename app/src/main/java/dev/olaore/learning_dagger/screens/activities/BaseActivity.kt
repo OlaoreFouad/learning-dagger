@@ -2,27 +2,39 @@ package dev.olaore.learning_dagger.screens.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import dev.olaore.learning_dagger.MyApplication
-import dev.olaore.learning_dagger.common.AppCompositionRoot
-import dev.olaore.learning_dagger.screens.common.di.Injector
-import dev.olaore.learning_dagger.screens.common.di.PresentationCompositionRoot
+import dev.olaore.learning_dagger.common.di.*
+import dev.olaore.learning_dagger.common.di.Injector
+import dev.olaore.learning_dagger.common.di.activity.ActivityComponent
+import dev.olaore.learning_dagger.common.di.activity.ActivityModule
+import dev.olaore.learning_dagger.common.di.activity.DaggerActivityComponent
+import dev.olaore.learning_dagger.common.di.app.AppComponent
+import dev.olaore.learning_dagger.common.di.presentation.DaggerPresentationComponent
+import dev.olaore.learning_dagger.common.di.presentation.PresentationComponent
+import dev.olaore.learning_dagger.common.di.presentation.PresentationModule
 
 open class BaseActivity : AppCompatActivity() {
 
-    private val appCompositionRoot: AppCompositionRoot
+    val appComponent: AppComponent
         get() = (application as MyApplication).root
 
-    val activityCompositionRoot: ActivityCompositionRoot by lazy {
-        ActivityCompositionRoot(
-            appCompositionRoot,
-            this
-        )
+    private val activityComponent: ActivityComponent by lazy {
+        DaggerActivityComponent.builder()
+            .activityModule(
+                ActivityModule(
+                    appComponent, this
+                )
+            )
+            .build()
     }
 
-    private val root: PresentationCompositionRoot by lazy {
-        PresentationCompositionRoot(activityCompositionRoot)
+    private val component: PresentationComponent by lazy {
+        DaggerPresentationComponent.builder()
+            .presentationModule(PresentationModule(activityComponent))
+            .build()
     }
 
     val injector: Injector
-        get() = Injector(root)
+        get() = Injector(component)
+
 
 }
