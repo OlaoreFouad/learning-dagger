@@ -9,6 +9,7 @@ import dev.olaore.learning_dagger.networking.StackoverflowApi
 import dev.olaore.learning_dagger.questions.FetchQuestionDetailsUseCase
 import dev.olaore.learning_dagger.questions.FetchQuestionsUseCase
 import dev.olaore.learning_dagger.screens.common.dialogs.DialogsNavigator
+import dev.olaore.learning_dagger.screens.common.navigation.ScreensNavigator
 import dev.olaore.learning_dagger.screens.common.viewmvcs.ViewMvcFactory
 
 @Module
@@ -17,27 +18,35 @@ class PresentationModule(
 ) {
 
     @Provides
-    fun layoutInflater() = component.layoutInflater()
+    fun layoutInflater(): LayoutInflater
+        = component.layoutInflater()
 
     @Provides
-    fun fragmentManager() = component.fragmentManager()
+    fun fragmentManager(): FragmentManager
+        = component.fragmentManager()
 
     @Provides
-    fun stackoverflowApi() = component.stackoverflowApi()
+    fun stackoverflowApi(): StackoverflowApi
+        = component.stackoverflowApi()
 
     @Provides
-    fun screensNavigator() = component.screensNavigator()
+    fun screensNavigator(): ScreensNavigator
+        = component.screensNavigator()
 
     @Provides
-    fun viewMvcFactory(layoutInflater: LayoutInflater) = ViewMvcFactory(layoutInflater)
+    fun viewMvcFactory(layoutInflater: LayoutInflater): ViewMvcFactory
+        = ViewMvcFactory(layoutInflater)
 
     @Provides
-    fun dialogsNavigator(fragmentManager: FragmentManager) = DialogsNavigator(fragmentManager)
+    fun dialogsNavigator(fragmentManager: FragmentManager): DialogsNavigator
+        = DialogsNavigator(fragmentManager)
 
     @Provides
-    fun fetchQuestionsUseCase(stackoverflowApi: StackoverflowApi) = FetchQuestionsUseCase(stackoverflowApi)
+    fun fetchQuestionsUseCase(stackoverflowApi: StackoverflowApi): FetchQuestionsUseCase
+        = FetchQuestionsUseCase(stackoverflowApi)
 
     @Provides
-    fun fetchQuestionDetailsUseCase(stackoverflowApi: StackoverflowApi) = FetchQuestionDetailsUseCase(stackoverflowApi)
+    fun fetchQuestionDetailsUseCase(stackoverflowApi: StackoverflowApi): FetchQuestionDetailsUseCase
+        = FetchQuestionDetailsUseCase(stackoverflowApi)
 
 }

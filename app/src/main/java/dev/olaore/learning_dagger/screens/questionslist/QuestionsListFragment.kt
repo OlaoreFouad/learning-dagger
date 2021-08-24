@@ -22,6 +22,7 @@ import dev.olaore.learning_dagger.screens.questionslist.QuestionsListViewMvc
 import kotlinx.coroutines.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
 class QuestionsListFragment : BaseFragment(), QuestionsListViewMvc.Listener {
@@ -31,9 +32,16 @@ class QuestionsListFragment : BaseFragment(), QuestionsListViewMvc.Listener {
 
     private lateinit var viewMvc: QuestionsListViewMvc
 
+    @Inject
     lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+
+    @Inject
     lateinit var dialogsNavigator: DialogsNavigator
+
+    @Inject
     lateinit var viewMvcFactory: ViewMvcFactory
+
+    @Inject
     lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {

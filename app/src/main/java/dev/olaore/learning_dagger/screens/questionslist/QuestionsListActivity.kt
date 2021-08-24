@@ -1,6 +1,7 @@
 package dev.olaore.learning_dagger.screens.questionslist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import dev.olaore.learning_dagger.Constants
@@ -24,6 +25,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class QuestionsListActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+//        Log.d("QuestionsListActivity", "${ application.javaClass.simpleName }")
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_frame)
 

@@ -27,7 +27,7 @@ open class BaseFragment : Fragment() {
             .build()
     }
 
-    private val root: PresentationComponent by lazy {
+    private val component: PresentationComponent by lazy {
         DaggerPresentationComponent.builder()
             .presentationModule(
                 PresentationModule(
@@ -37,7 +37,6 @@ open class BaseFragment : Fragment() {
             .build()
     }
 
-    val injector: Injector
-        get() = Injector(root)
+    val injector = component
 
 }
