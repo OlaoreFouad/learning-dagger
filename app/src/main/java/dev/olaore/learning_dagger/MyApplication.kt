@@ -7,7 +7,7 @@ import dev.olaore.learning_dagger.common.di.app.DaggerAppComponent
 
 class MyApplication: Application() {
 
-    val root: AppComponent by lazy {
+    val appComponent: AppComponent by lazy {
         DaggerAppComponent.builder()
             .appModule(AppModule(this))
             .build()

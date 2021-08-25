@@ -30,4 +30,7 @@ class ActivityModule(
     @Provides
     fun stackoverflowApi() = appComponent.stackoverflowApi()
 
+    @Provides
+    fun application() = appComponent.application()
+
 }

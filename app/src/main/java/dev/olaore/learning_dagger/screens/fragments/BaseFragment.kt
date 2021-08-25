@@ -24,5 +24,4 @@ open class BaseFragment : Fragment() {
     }
 
     protected val injector get() = root
-
 }

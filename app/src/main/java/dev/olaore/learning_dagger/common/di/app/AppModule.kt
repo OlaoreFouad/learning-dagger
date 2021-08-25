@@ -9,7 +9,6 @@ import dev.olaore.learning_dagger.networking.StackoverflowApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-@UiThread
 @Module
 class AppModule(
     val application: Application
@@ -21,7 +20,6 @@ class AppModule(
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(Constants.BASE_URL)
         .build()
-
 
     @Provides
     @AppScope

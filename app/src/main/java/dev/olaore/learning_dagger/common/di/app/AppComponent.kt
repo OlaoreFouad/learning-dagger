@@ -9,8 +9,6 @@ import retrofit2.Retrofit
 @Component(modules = [AppModule::class])
 interface AppComponent {
 
-    fun retrofit(): Retrofit
-
     fun stackoverflowApi(): StackoverflowApi
 
     fun application(): Application
