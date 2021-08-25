@@ -19,7 +19,7 @@ open class BaseActivity : AppCompatActivity() {
     val appComponent: AppComponent
         get() = (application as MyApplication).appComponent
 
-    private val activityComponent: ActivityComponent by lazy {
+    val activityComponent: ActivityComponent by lazy {
         DaggerActivityComponent.builder()
             .activityModule(
                 ActivityModule(
