@@ -1,5 +1,6 @@
 package dev.olaore.learning_dagger.common.di.app
 
+import android.app.Application
 import androidx.annotation.UiThread
 import dagger.Module
 import dagger.Provides
@@ -10,7 +11,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @UiThread
 @Module
-class AppModule {
+class AppModule(
+    val application: Application
+) {
 
     @Provides
     @AppScope
@@ -24,5 +27,8 @@ class AppModule {
     @AppScope
     fun stackoverflowApi(retrofit: Retrofit): StackoverflowApi =
         retrofit.create(StackoverflowApi::class.java)
+
+    @Provides
+    fun application() = application
 
 }

@@ -24,17 +24,26 @@ import dev.olaore.learning_dagger.screens.common.viewmvcs.ViewMvcFactory
 import kotlinx.coroutines.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
     private lateinit var questionId: String
-    lateinit var viewMvc: QuestionDetailsViewMvc
+
+    private lateinit var viewMvc: QuestionDetailsViewMvc
+
+    @Inject
     lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
+
+    @Inject
     lateinit var dialogsNavigator: DialogsNavigator
+
+    @Inject
     lateinit var screensNavigator: ScreensNavigator
 
+    @Inject
     lateinit var viewMvcFactory: ViewMvcFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {

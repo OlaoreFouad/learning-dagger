@@ -6,18 +6,14 @@ import dev.olaore.learning_dagger.questions.FetchQuestionsUseCase
 import dev.olaore.learning_dagger.screens.common.dialogs.DialogsNavigator
 import dev.olaore.learning_dagger.screens.common.navigation.ScreensNavigator
 import dev.olaore.learning_dagger.screens.common.viewmvcs.ViewMvcFactory
+import dev.olaore.learning_dagger.screens.questiondetails.QuestionDetailsActivity
+import dev.olaore.learning_dagger.screens.questionslist.QuestionsListFragment
 
 @Component(modules = [PresentationModule::class])
 interface PresentationComponent {
 
-    fun viewMvcFactory(): ViewMvcFactory
+    fun inject(fragment: QuestionsListFragment)
 
-    fun dialogsNavigator(): DialogsNavigator
-
-    fun fetchQuestionsUseCase(): FetchQuestionsUseCase
-
-    fun fetchQuestionDetailsUseCase(): FetchQuestionDetailsUseCase
-
-    fun screensNavigator(): ScreensNavigator
+    fun inject(aktivity: QuestionDetailsActivity)
 
 }

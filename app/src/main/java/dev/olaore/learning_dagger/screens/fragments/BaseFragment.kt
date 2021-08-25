@@ -13,31 +13,16 @@ import dev.olaore.learning_dagger.screens.activities.BaseActivity
 
 open class BaseFragment : Fragment() {
 
-    private val appComponent: AppComponent
-        get() = (requireActivity() as BaseActivity).appComponent
-
-    private val activityComponent: ActivityComponent by lazy {
-        DaggerActivityComponent.builder()
-            .activityModule(
-                ActivityModule(
-                    appComponent,
-                    requireActivity() as BaseActivity
-                )
-            )
-            .build()
-    }
-
     private val root: PresentationComponent by lazy {
         DaggerPresentationComponent.builder()
             .presentationModule(
                 PresentationModule(
-                    activityComponent
+                    (requireActivity() as BaseActivity).activityComponent
                 )
             )
             .build()
     }
 
-    val injector: Injector
-        get() = Injector(root)
+    protected val injector get() = root
 
 }
