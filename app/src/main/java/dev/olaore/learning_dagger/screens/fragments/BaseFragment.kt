@@ -4,25 +4,20 @@ import androidx.fragment.app.Fragment
 import dev.olaore.learning_dagger.common.di.*
 import dev.olaore.learning_dagger.common.di.activity.ActivityComponent
 import dev.olaore.learning_dagger.common.di.activity.ActivityModule
-import dev.olaore.learning_dagger.common.di.activity.DaggerActivityComponent
 import dev.olaore.learning_dagger.common.di.app.AppComponent
-import dev.olaore.learning_dagger.common.di.presentation.DaggerPresentationComponent
 import dev.olaore.learning_dagger.common.di.presentation.PresentationComponent
 import dev.olaore.learning_dagger.common.di.presentation.PresentationModule
 import dev.olaore.learning_dagger.screens.activities.BaseActivity
 
 open class BaseFragment : Fragment() {
 
+    private val activityComponent: ActivityComponent
+        get() = (requireActivity() as BaseActivity).activityComponent
+
     private val root: PresentationComponent by lazy {
-        DaggerPresentationComponent.builder()
-            .activityComponent(
-                (requireActivity() as BaseActivity).activityComponent
-            )
-            .presentationModule(
-                PresentationModule()
-            )
-            .build()
+        activityComponent.newPresentationComponent(PresentationModule())
     }
 
     protected val injector get() = root
+
 }

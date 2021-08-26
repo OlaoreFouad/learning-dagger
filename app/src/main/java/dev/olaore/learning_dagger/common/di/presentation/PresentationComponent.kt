@@ -1,6 +1,7 @@
 package dev.olaore.learning_dagger.common.di.presentation
 
 import dagger.Component
+import dagger.Subcomponent
 import dev.olaore.learning_dagger.common.di.activity.ActivityComponent
 import dev.olaore.learning_dagger.questions.FetchQuestionDetailsUseCase
 import dev.olaore.learning_dagger.questions.FetchQuestionsUseCase
@@ -11,7 +12,7 @@ import dev.olaore.learning_dagger.screens.questiondetails.QuestionDetailsActivit
 import dev.olaore.learning_dagger.screens.questionslist.QuestionsListFragment
 
 @PresentationScope
-@Component(modules = [PresentationModule::class], dependencies = [ActivityComponent::class])
+@Subcomponent(modules = [PresentationModule::class])
 interface PresentationComponent {
 
     fun inject(fragment: QuestionsListFragment)
