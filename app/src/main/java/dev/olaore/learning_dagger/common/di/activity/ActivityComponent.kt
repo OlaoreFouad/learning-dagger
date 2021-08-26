@@ -17,8 +17,6 @@ import dev.olaore.learning_dagger.screens.common.navigation.ScreensNavigator
 )
 interface ActivityComponent {
 
-    fun newPresentationComponent(
-        module: PresentationModule
-    ): PresentationComponent
+    fun newPresentationComponent(): PresentationComponent
 
 }

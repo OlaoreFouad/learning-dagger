@@ -13,14 +13,14 @@ import dev.olaore.learning_dagger.screens.common.navigation.ScreensNavigator
 import dev.olaore.learning_dagger.screens.common.viewmvcs.ViewMvcFactory
 
 @Module
-class PresentationModule() {
+class UsecaseModule() {
 
     @Provides
-    fun viewMvcFactory(layoutInflater: LayoutInflater): ViewMvcFactory
-        = ViewMvcFactory(layoutInflater)
+    fun fetchQuestionsUseCase(stackoverflowApi: StackoverflowApi): FetchQuestionsUseCase
+        = FetchQuestionsUseCase(stackoverflowApi)
 
     @Provides
-    fun dialogsNavigator(fragmentManager: FragmentManager): DialogsNavigator
-        = DialogsNavigator(fragmentManager)
+    fun fetchQuestionDetailsUseCase(stackoverflowApi: StackoverflowApi): FetchQuestionDetailsUseCase
+        = FetchQuestionDetailsUseCase(stackoverflowApi)
 
 }

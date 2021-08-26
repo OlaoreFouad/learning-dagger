@@ -15,7 +15,7 @@ open class BaseFragment : Fragment() {
         get() = (requireActivity() as BaseActivity).activityComponent
 
     private val root: PresentationComponent by lazy {
-        activityComponent.newPresentationComponent(PresentationModule())
+        activityComponent.newPresentationComponent()
     }
 
     protected val injector get() = root
