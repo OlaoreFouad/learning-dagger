@@ -13,25 +13,7 @@ import dev.olaore.learning_dagger.screens.common.navigation.ScreensNavigator
 import dev.olaore.learning_dagger.screens.common.viewmvcs.ViewMvcFactory
 
 @Module
-class PresentationModule(
-    private val component: ActivityComponent
-) {
-
-    @Provides
-    fun layoutInflater(): LayoutInflater
-        = component.layoutInflater()
-
-    @Provides
-    fun fragmentManager(): FragmentManager
-        = component.fragmentManager()
-
-    @Provides
-    fun stackoverflowApi(): StackoverflowApi
-        = component.stackoverflowApi()
-
-    @Provides
-    fun screensNavigator(): ScreensNavigator
-        = component.screensNavigator()
+class PresentationModule() {
 
     @Provides
     fun viewMvcFactory(layoutInflater: LayoutInflater): ViewMvcFactory

@@ -4,11 +4,15 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import dagger.Component
+import dev.olaore.learning_dagger.common.di.app.AppComponent
 import dev.olaore.learning_dagger.networking.StackoverflowApi
 import dev.olaore.learning_dagger.screens.common.navigation.ScreensNavigator
 
 @ActivityScope
-@Component(modules = [ActivityModule::class])
+@Component(
+    modules = [ActivityModule::class],
+    dependencies = [AppComponent::class]
+)
 interface ActivityComponent {
 
     fun screensNavigator(): ScreensNavigator
@@ -18,7 +22,7 @@ interface ActivityComponent {
     fun fragmentManager(): FragmentManager
 
     fun stackoverflowApi(): StackoverflowApi
-    
+
     fun activity(): AppCompatActivity
 
 }

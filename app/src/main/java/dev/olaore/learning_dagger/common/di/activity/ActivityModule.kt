@@ -11,7 +11,6 @@ import dev.olaore.learning_dagger.screens.common.navigation.ScreensNavigator
 
 @Module
 class ActivityModule(
-    private val appComponent: AppComponent,
     private val activity: AppCompatActivity
 ) {
 
@@ -26,11 +25,5 @@ class ActivityModule(
 
     @Provides
     fun fragmentManager() = activity.supportFragmentManager
-
-    @Provides
-    fun stackoverflowApi() = appComponent.stackoverflowApi()
-
-    @Provides
-    fun application() = appComponent.application()
 
 }
