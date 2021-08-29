@@ -10,10 +10,12 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import dev.olaore.learning_dagger.models.Result
+import javax.inject.Inject
 
-class FetchQuestionDetailsUseCase(
-    private val stackoverflowApi: StackoverflowApi
-) {
+class FetchQuestionDetailsUseCase @Inject
+    constructor(
+        private val stackoverflowApi: StackoverflowApi
+    ) {
 
     suspend fun fetchQuestionDetails(questionId: String): Result {
         return withContext(Dispatchers.IO) {

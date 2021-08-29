@@ -7,11 +7,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
 
-class FetchQuestionsUseCase(
-    private val stackoverflowApi: StackoverflowApi
-) {
+class FetchQuestionsUseCase @Inject
+    constructor(
+        private val stackoverflowApi: StackoverflowApi
+    ) {
 
     suspend fun fetchLatestQuestions(): Result {
         return withContext(Dispatchers.IO) {
