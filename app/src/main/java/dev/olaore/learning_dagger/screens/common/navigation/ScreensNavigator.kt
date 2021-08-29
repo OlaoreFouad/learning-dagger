@@ -6,9 +6,7 @@ import dev.olaore.learning_dagger.common.di.activity.ActivityScope
 import dev.olaore.learning_dagger.screens.questiondetails.QuestionDetailsActivity
 import javax.inject.Inject
 
-@ActivityScope
-class ScreensNavigator @Inject
-    constructor(
+class ScreensNavigator(
         private val activity: AppCompatActivity
     ) {
 
