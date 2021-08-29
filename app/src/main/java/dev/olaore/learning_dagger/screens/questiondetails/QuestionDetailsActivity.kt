@@ -15,6 +15,7 @@ import dev.olaore.learning_dagger.networking.StackoverflowApi
 import dev.olaore.learning_dagger.R
 import dev.olaore.learning_dagger.models.Result
 import dev.olaore.learning_dagger.questions.FetchQuestionDetailsUseCase
+import dev.olaore.learning_dagger.questions.QuestionWithBody
 import dev.olaore.learning_dagger.screens.activities.BaseActivity
 import dev.olaore.learning_dagger.screens.common.dialogs.DialogsNavigator
 import dev.olaore.learning_dagger.screens.common.dialogs.ServerErrorDialogFragment
@@ -72,24 +73,11 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
         coroutineScope.launch {
             viewMvc.showProgressIndication()
             try {
-                when (val questionDetailsResult =
-                    fetchQuestionDetailsUseCase.fetchQuestionDetails(questionId)) {
+                when (
+                    val questionDetailsResult = fetchQuestionDetailsUseCase.fetchQuestionDetails(questionId)
+                ) {
                     is Result.Success<*> -> {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            viewMvc.setQuestionText(
-                                Html.fromHtml(
-                                    questionDetailsResult.data.toString(),
-                                    Html.FROM_HTML_MODE_LEGACY
-                                )
-                            )
-                        } else {
-                            @Suppress("DEPRECATION")
-                            viewMvc.setQuestionText(
-                                Html.fromHtml(
-                                    questionDetailsResult.data.toString()
-                                )
-                            )
-                        }
+                        viewMvc.setQuestion(questionDetailsResult.data as QuestionWithBody)
                     }
                     is Result.Failure -> {
                         onFetchFailed()

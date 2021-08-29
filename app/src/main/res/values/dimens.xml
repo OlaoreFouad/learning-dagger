@@ -2,4 +2,6 @@
     <dimen name="toolbar_height">54dp</dimen>
     <dimen name="toolbar_button_size">54dp</dimen>
     <dimen name="toolbar_icon_size">24dp</dimen>
+    <dimen name="mid_text_size">24sp</dimen>
+    <dimen name="dimen_image_margin">10dp</dimen>
 </resources>

@@ -22,8 +22,8 @@ class FetchQuestionDetailsUseCase @Inject
             try {
                 val response = stackoverflowApi.questionDetails(questionId)
                 if (response.isSuccessful && response.body() != null) {
-                    val questionBody = response.body()!!.question.body
-                    return@withContext Result.Success(questionBody)
+                    val question = response.body()!!.question
+                    return@withContext Result.Success(question)
                 } else {
                     return@withContext Result.Failure
                 }
