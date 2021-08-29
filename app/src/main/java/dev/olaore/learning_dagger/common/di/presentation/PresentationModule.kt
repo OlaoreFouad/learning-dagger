@@ -19,8 +19,4 @@ class PresentationModule() {
     fun viewMvcFactory(layoutInflater: LayoutInflater): ViewMvcFactory
         = ViewMvcFactory(layoutInflater)
 
-    @Provides
-    fun dialogsNavigator(fragmentManager: FragmentManager): DialogsNavigator
-        = DialogsNavigator(fragmentManager)
-
 }
