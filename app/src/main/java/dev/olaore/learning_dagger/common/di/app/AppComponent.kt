@@ -13,9 +13,7 @@ import retrofit2.Retrofit
 @Component(modules = [AppModule::class])
 interface AppComponent {
 
-    fun newActivityComponent(
-        module: ActivityModule
-    ): ActivityComponent
+    fun newActivityComponentBuilder(): ActivityComponent.Builder
 
     fun newServiceComponent(
         module: ServiceModule

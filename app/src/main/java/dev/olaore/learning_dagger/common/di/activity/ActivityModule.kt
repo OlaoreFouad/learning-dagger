@@ -10,21 +10,17 @@ import dev.olaore.learning_dagger.screens.activities.BaseActivity
 import dev.olaore.learning_dagger.screens.common.navigation.ScreensNavigator
 
 @Module
-class ActivityModule(
-    private val activity: AppCompatActivity
-) {
-
-    @Provides
-    fun activity() = activity
+object ActivityModule {
 
     @Provides
     @ActivityScope
     fun screensNavigator(activity: AppCompatActivity) = ScreensNavigator(activity)
 
     @Provides
-    fun layoutInflater(activity: AppCompatActivity) = LayoutInflater.from(activity)
+    fun layoutInflater(activity: AppCompatActivity): LayoutInflater = LayoutInflater.from(activity)
 
     @Provides
-    fun fragmentManager() = activity.supportFragmentManager
+    fun fragmentManager(activity: AppCompatActivity) = activity.supportFragmentManager
+
 
 }
