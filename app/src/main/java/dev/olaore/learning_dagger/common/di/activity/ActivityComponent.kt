@@ -19,8 +19,6 @@ interface ActivityComponent {
         @BindsInstance
         fun activity(activity: AppCompatActivity): Builder
 
-        fun activityModule(module: ActivityModule): Builder
-
         fun build(): ActivityComponent
 
     }

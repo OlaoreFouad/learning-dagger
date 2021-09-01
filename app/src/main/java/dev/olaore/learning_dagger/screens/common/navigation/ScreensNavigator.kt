@@ -6,16 +6,10 @@ import dev.olaore.learning_dagger.common.di.activity.ActivityScope
 import dev.olaore.learning_dagger.screens.questiondetails.QuestionDetailsActivity
 import javax.inject.Inject
 
-class ScreensNavigator(
-        private val activity: AppCompatActivity
-    ) {
+interface ScreensNavigator {
 
-    fun navigateBack() {
-        activity.onBackPressed()
-    }
+    fun navigateBack()
 
-    fun toQuestionDetails(id: String) {
-        QuestionDetailsActivity.start(activity.applicationContext, id)
-    }
+    fun toQuestionDetails(id: String)
 
 }
