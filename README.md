@@ -19,3 +19,9 @@ _Scopes_
 _Dependencies_
 
 _Subcomponents_
+
+_Static Providers_
+
+_Subcomponent Builders_
+
+_Bindings (@BindsInstance and @Binds)_
