@@ -26,8 +26,6 @@ class QuestionsListActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-//        Log.d("QuestionsListActivity", "${ application.javaClass.simpleName }")
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_frame)
 

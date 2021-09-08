@@ -10,6 +10,16 @@
         android:layout_height="@dimen/toolbar_height"
         android:background="@color/purple_200"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:id="@+id/open_viewmodel_button"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/open_viewmodel_screen"
+        android:layout_height="wrap_content"/>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"

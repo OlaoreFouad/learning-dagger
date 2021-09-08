@@ -99,6 +99,10 @@ class QuestionsListFragment : BaseFragment(), QuestionsListViewMvc.Listener {
         screensNavigator.toQuestionDetails(clickedQuestion.id)
     }
 
+    override fun onViewModelButtonClicked() {
+        screensNavigator.toViewModel()
+    }
+
     private fun onFetchFailed() {
         dialogsNavigator.showServerErrorDialog()
     }

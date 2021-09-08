@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +26,7 @@ class QuestionsListViewMvc(
     interface Listener {
         fun onRefreshClicked()
         fun onQuestionClicked(clickedQuestion: Question)
+        fun onViewModelButtonClicked()
     }
 
     private var swipeRefresh: SwipeRefreshLayout = findViewById(
@@ -32,6 +34,7 @@ class QuestionsListViewMvc(
     )
     private var recyclerView: RecyclerView
     private var questionsAdapter: QuestionsAdapter
+    private var openViewModelButton: Button = findViewById(R.id.open_viewmodel_button)
 
     init {
         swipeRefresh.setOnRefreshListener {
@@ -48,6 +51,10 @@ class QuestionsListViewMvc(
             }
         }
         recyclerView.adapter = questionsAdapter
+
+        openViewModelButton.setOnClickListener {
+            listeners.forEach { listener -> listener.onViewModelButtonClicked() }
+        }
 
     }
 

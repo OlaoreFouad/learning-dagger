@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".screens.questiondetails.QuestionDetailsActivity" />
+        <activity android:name=".screens.viewmodels.ViewModelActivity" />
     </application>
 
 </manifest>

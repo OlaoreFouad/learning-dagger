@@ -4,4 +4,6 @@
   <string name="server_error_dialog_message">Communication with the server failed</string>
   <string name="server_error_dialog_button_caption">OK</string>
     <string name="placeholder_name">Fouad Olamide Olaore</string>
+    <string name="viewmodel_text">ViewModel activity, this is to teach how to handle viewmodels when using dagger for Dependency Injection</string>
+  <string name="open_viewmodel_screen">Open ViewModel Screen</string>
 </resources>
