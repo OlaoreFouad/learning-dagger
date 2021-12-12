@@ -13,7 +13,7 @@ import dev.olaore.learning_dagger.screens.questionslist.QuestionsListFragment
 import dev.olaore.learning_dagger.screens.viewmodels.ViewModelActivity
 
 @PresentationScope
-@Subcomponent(modules = [ViewModelsModule::class])
+@Subcomponent(modules = [PresentationModule::class])
 interface PresentationComponent {
 
     fun inject(fragment: QuestionsListFragment)

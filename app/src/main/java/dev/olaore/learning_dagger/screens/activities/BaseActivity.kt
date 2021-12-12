@@ -5,6 +5,7 @@ import dev.olaore.learning_dagger.MyApplication
 import dev.olaore.learning_dagger.common.di.activity.ActivityComponent
 import dev.olaore.learning_dagger.common.di.activity.ActivityModule
 import dev.olaore.learning_dagger.common.di.presentation.PresentationComponent
+import dev.olaore.learning_dagger.common.di.presentation.PresentationModule
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -17,7 +18,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     private val component: PresentationComponent by lazy {
-        activityComponent.newPresentationComponent()
+        activityComponent.newPresentationComponent(PresentationModule(this))
     }
 
     protected val injector get() = component
