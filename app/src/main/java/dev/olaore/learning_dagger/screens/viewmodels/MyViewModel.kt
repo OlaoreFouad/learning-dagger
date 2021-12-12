@@ -11,7 +11,7 @@ import java.lang.RuntimeException
 import javax.inject.Inject
 import javax.inject.Provider
 
-class MyViewModel
+class MyViewModel @Inject
 constructor(
     private val fetchQuestionsUseCase: FetchQuestionsUseCase
 ) : ViewModel() {

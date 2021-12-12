@@ -35,6 +35,7 @@ class ViewModelActivity : BaseActivity() {
     companion object {
         fun start(context: Context) {
             val viewModelIntent = Intent(context, ViewModelActivity::class.java)
+            viewModelIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(viewModelIntent)
         }
     }
