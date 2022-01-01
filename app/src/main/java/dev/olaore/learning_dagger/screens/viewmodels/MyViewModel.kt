@@ -22,9 +22,8 @@ constructor(
     val questions: LiveData<questionsList> get() = _questions
 
     init {
-
         viewModelScope.launch {
-//            delay(5000)
+            delay(5000)
             val qs = fetchQuestionsUseCase.fetchLatestQuestions()
             if (qs is Result.Success<*>) {
                 _questions.postValue(qs.data as questionsList)
