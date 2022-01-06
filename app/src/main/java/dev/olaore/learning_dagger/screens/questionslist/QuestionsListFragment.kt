@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import dev.olaore.learning_dagger.Constants
 import dev.olaore.learning_dagger.MyApplication
 import dev.olaore.learning_dagger.models.Result
@@ -25,6 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
+@AndroidEntryPoint
 class QuestionsListFragment : BaseFragment(), QuestionsListViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -45,7 +47,6 @@ class QuestionsListFragment : BaseFragment(), QuestionsListViewMvc.Listener {
     lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injector.inject(this)
         super.onCreate(savedInstanceState)
     }
 

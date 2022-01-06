@@ -18,7 +18,6 @@ class AppModule(
 ) {
 
     @Provides
-    @AppScope
     @Retrofit1
     fun retrofit1(urlProvider: UrlProvider): Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
@@ -26,7 +25,6 @@ class AppModule(
         .build()
 
     @Provides
-    @AppScope
     @Retrofit2
     fun retrofit2(urlProvider: UrlProvider): Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
@@ -34,7 +32,6 @@ class AppModule(
         .build()
 
     @Provides
-    @AppScope
     fun stackoverflowApi(@Retrofit1 retrofit: Retrofit): StackoverflowApi =
         retrofit.create(StackoverflowApi::class.java)
 

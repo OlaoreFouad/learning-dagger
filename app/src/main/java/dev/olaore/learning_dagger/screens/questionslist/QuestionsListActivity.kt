@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import dev.olaore.learning_dagger.Constants
 import dev.olaore.learning_dagger.MyApplication
 import dev.olaore.learning_dagger.R
@@ -22,6 +23,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Suppress("UNCHECKED_CAST")
+@AndroidEntryPoint
 class QuestionsListActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
