@@ -1,5 +1,6 @@
 package dev.olaore.learning_dagger.screens.common.navigation
 
+import android.app.Activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import dev.olaore.learning_dagger.screens.questiondetails.QuestionDetailsActivity

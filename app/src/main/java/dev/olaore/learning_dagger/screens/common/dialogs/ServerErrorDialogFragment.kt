@@ -4,8 +4,10 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import dev.olaore.learning_dagger.R
 
+@AndroidEntryPoint
 class ServerErrorDialogFragment : BaseDialog() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

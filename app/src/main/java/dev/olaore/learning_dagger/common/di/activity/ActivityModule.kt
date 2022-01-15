@@ -1,14 +1,21 @@
 package dev.olaore.learning_dagger.common.di.activity
 
+import android.app.Activity
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.scopes.ActivityScoped
 import dev.olaore.learning_dagger.screens.common.navigation.ScreensNavigator
 import dev.olaore.learning_dagger.screens.common.navigation.ScreensNavigatorImpl
 
 @Module
+@InstallIn(ActivityComponent::class)
 abstract class ActivityModule {
 
     @Binds
@@ -17,12 +24,19 @@ abstract class ActivityModule {
     ): ScreensNavigator
 
     companion object {
-        @Provides
-        fun layoutInflater(activity: AppCompatActivity): LayoutInflater =
-            LayoutInflater.from(activity)
 
         @Provides
-        fun fragmentManager(activity: AppCompatActivity) = activity.supportFragmentManager
+        fun provideAppCompatActivity(activity: Activity): AppCompatActivity
+             = activity as AppCompatActivity
+
+        @Provides
+        fun layoutInflater(activity: Activity): LayoutInflater =
+            LayoutInflater.from(activity)
+
+        @ActivityScoped
+        @Provides
+        fun fragmentManager(activity: AppCompatActivity): FragmentManager = activity.supportFragmentManager
+
     }
 
 

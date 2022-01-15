@@ -1,6 +1,7 @@
 package dev.olaore.learning_dagger.screens.viewmodels
 
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.olaore.learning_dagger.models.Result
 import dev.olaore.learning_dagger.questions.FetchQuestionsUseCase
 import dev.olaore.learning_dagger.questions.Question
@@ -12,10 +13,11 @@ import java.lang.RuntimeException
 import javax.inject.Inject
 import javax.inject.Provider
 
+@HiltViewModel
 class MyViewModel @Inject
 constructor(
     private val fetchQuestionsUseCase: FetchQuestionsUseCase,
-    savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private var _questions : MutableLiveData<questionsList> = savedStateHandle.getLiveData("questions")

@@ -104,6 +104,7 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
         fun start(context: Context, questionId: String) {
             val intent = Intent(context, QuestionDetailsActivity::class.java)
             intent.putExtra(EXTRA_QUESTION_ID, questionId)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
     }

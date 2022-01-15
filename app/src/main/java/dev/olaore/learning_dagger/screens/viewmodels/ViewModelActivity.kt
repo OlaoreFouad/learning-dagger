@@ -10,14 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import dev.olaore.learning_dagger.R
 import dev.olaore.learning_dagger.screens.activities.BaseActivity
-import dev.olaore.learning_dagger.screens.common.viewmodels.ViewModelFactory
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ViewModelActivity : BaseActivity() {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
 
     lateinit var myViewModel: MyViewModel
 
@@ -25,7 +20,7 @@ class ViewModelActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_viewmodel)
 
-        myViewModel = ViewModelProvider(this, viewModelFactory).get(MyViewModel::class.java)
+        myViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
 
         myViewModel.questions.observe(this, Observer {
             Toast.makeText(this, "Size of items: ${ it.size }", Toast.LENGTH_LONG).show()
